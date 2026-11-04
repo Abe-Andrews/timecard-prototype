@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TimeCard Redesign – Medium-Fidelity Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <span>TimeCard Prototype</span>
+    </div>
+    <div class="week-nav">
+      <strong>Week of Oct 26 – Oct 30, 2026</strong>
+      <span id="status-pill" class="pill submitted" hidden>Submitted</span>
+    </div>
+    <div class="top-right">
+      <button class="btn ghost sm" id="reset-btn" title="Start the prototype over">Reset prototype</button>
+      <div class="avatar">AA</div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- ===== Side nav ===== -->
+    <nav class="sidenav">
+      <a href="#" data-view="timesheet" class="active">Timesheet</a>
+      <a href="#" data-view="codes">Charge codes</a>
+    </nav>
+
+    <main>
+      <!-- ================= VIEW: TIMESHEET ================= -->
+      <section id="view-timesheet" class="view active">
+        <div class="action-row">
+          <button class="btn primary" id="open-assistant">Speak or type your time</button>
+          <button class="btn" id="open-calendar">Suggest from calendar</button>
+          <button class="btn" id="open-picker">Add charge code</button>
+          <div class="spacer"></div>
+          <button class="btn dark" id="submit-btn">Submit timesheet</button>
+        </div>
+
+        <div class="card">
+          <table class="grid" id="grid">
+            <thead></thead>
+            <tbody></tbody>
+            <tfoot></tfoot>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= VIEW: CHARGE CODES ================= -->
+      <section id="view-codes" class="view">
+        <h2>Charge codes</h2>
+        <p class="muted">Search your charge codes, star favorites, and give codes a nickname.</p>
+        <div class="code-browser" id="codes-browser"></div>
+      </section>
+
+      <!-- ================= VIEW: CONFIRMATION ================= -->
+      <section id="view-confirm" class="view">
+        <div class="receipt card">
+          <div class="big-check">&#10003;</div>
+          <h2>Timesheet submitted</h2>
+          <p class="muted">Week of Oct 26 – Oct 30, 2026</p>
+          <table class="grid readonly" id="confirm-table"></table>
+          <div class="action-row center">
+            <button class="btn ghost" data-view="timesheet">Back to timesheet</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ================= MODAL: CODE PICKER ================= -->
+  <div class="modal-bg" id="picker-modal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="picker-title">Add a charge code</h3>
+        <button class="x" data-close>&times;</button>
+      </div>
+      <div class="code-browser" id="picker-browser"></div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ASSISTANT ================= -->
+  <div class="modal-bg" id="assistant-modal">
+    <div class="modal wide">
+      <div class="modal-head">
+        <h3>Speak or type your time · <span id="asst-day"></span></h3>
+        <button class="x" data-close>&times;</button>
+      </div>
+      <div class="assistant-input">
+        <div class="input-row">
+          <button class="mic" id="mic-btn" title="Tap to speak">Speak</button>
+          <textarea id="asst-text" rows="2" placeholder='Say or type where you worked, what you did, and how many hours, e.g. "8 hours on the Navy pipeline"'></textarea>
+          <button class="btn primary" id="asst-parse">Fill it in</button>
+        </div>
+        <p class="muted small" id="mic-status"></p>
+      </div>
+      <div id="asst-draft"></div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CALENDAR ================= -->
+  <div class="modal-bg" id="calendar-modal">
+    <div class="modal wide">
+      <div class="modal-head">
+        <h3>Suggested from your calendar · <span id="cal-day-label"></span></h3>
+        <button class="x" data-close>&times;</button>
+      </div>
+      <p class="muted small">Accept the suggestions you want, or edit the charge code and location before adding.</p>
+      <div id="cal-list"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
